@@ -51,14 +51,14 @@ public class MatrixMultiplication {
 		
 		System.out.println("Matrix Multiplication :");
 		
-        for (int i = 0; i < row1; i++) {
-            for (int j = 0; j < column2; j++) {
-                for (int k = 0; k < row2; k++)
-                    result_matrix[i][j] += first_matrix[i][k] * second_matrix[k][j];
-                System.out.print(result_matrix[i][j] + " ");
-            }
-            System.out.println("");
-        }
+        	for (int i = 0; i < row1; i++) {
+            		for (int j = 0; j < column2; j++) {
+               	 		for (int k = 0; k < row2; k++)
+                    			result_matrix[i][j] += first_matrix[i][k] * second_matrix[k][j];
+                		System.out.print(result_matrix[i][j] + " ");
+            		}
+            		System.out.println("");
+       		}
 			
 		
 		scanner.close();

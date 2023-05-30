@@ -34,12 +34,16 @@ public class PigDiceGame {
 				}
 					
 				turn_points += die_number;
+				total_points += die_number;
+				
+				if(total_points >= 20)
+					return total_points;
 				
 			}
 			else
 			{
 				System.out.println("Score for turn : " + turn_points);
-				System.out.println("Total Score : " + (total_points + turn_points));
+				System.out.println("Total Score : " + (total_points));
 				break;
 			}
 			
@@ -63,10 +67,15 @@ public class PigDiceGame {
 			turns++;
 			
 			int value = pigDiceGame(turns,total_points);
+			if(value >= 20)
+			{
+				System.out.println("Total Score : " + (value));
+				break;
+			}
+				
 			total_points += value;
 
 		}
-		System.out.println("");
 		System.out.println("You finished in " + turns + " turns");
 		System.out.println("! Game Over !");
 

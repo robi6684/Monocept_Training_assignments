@@ -1,12 +1,12 @@
 package com.monocept.movieapp;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class MovieController {
 
 	private MovieManager manager;
+	Scanner scanner = new Scanner(System.in);
 
 	public MovieController(MovieManager manager) {
 		super();
@@ -18,7 +18,7 @@ public class MovieController {
 	}
 
 	private void displayMenu() {
-		Scanner scanner = new Scanner(System.in);
+		
 		int choice = 0;
 		
 		do {
@@ -26,46 +26,30 @@ public class MovieController {
 			System.out.println("1. Add Movie");
 			System.out.println("2. Clear Movie");
 			System.out.println("3. Get Movie");
-			System.out.println("4. Get Movie ID");
-			System.out.println("5. Load Movie");
-			System.out.println("6. Save Movie");
-			System.out.println("7. Exit");
+			System.out.println("4. Get Movie By ID");
+			System.out.println("5. Exit");
 			choice = scanner.nextInt();
 			
 			switch(choice) {
 			case 1: 
-				manager.addMovie(new Movie(1,"Matrix",1999,"Science Fiction"));
+				Movie movie = setMovieDetails();
+				manager.addMovie(movie);
+				manager.saveMovie();
 				break;
 			case 2:
 				manager.clearMovies();
+				manager.saveMovie();
 				break;
 			case 3:
 				List<Movie> movies = manager.getMovies();
-				movies.stream().forEach((movie) -> System.out.println(movie));
+				movies.stream().forEach((name) -> System.out.println(name));
 				break;
 			case 4:
-				System.out.println(manager.getMovieId(new Movie(1,"Matrix",1999,"Science Fiction")));
+				System.out.println("Enter Movie ID");
+				int id = scanner.nextInt();
+				manager.getMovieById(id);
 				break;
 			case 5:
-				try {
-					manager.loadMovies();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				break;
-			case 6:
-				try {
-					manager.saveMovie();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				break;
-			case 7:
 				System.exit(0);
 				break;
 			default:
@@ -74,12 +58,27 @@ public class MovieController {
 			}
 		
 		}
-		while(choice != 7);
-		scanner.close();
+		while(choice != 5);
+		
 		
 	}
-//	private void setMovieDetails() {
-//		
-//	}
+	private Movie setMovieDetails() {
+		System.out.println("Enter Movie ID");
+		int id = scanner.nextInt();
+		
+		System.out.println("Enter Movie Year");
+		int year = scanner.nextInt();
+		
+		System.out.println("Enter Movie Name");
+		String name = scanner.nextLine();
+		
+		scanner.nextLine();
+		
+		System.out.println("Enter Movie Genre");
+		String genre = scanner.nextLine();
+		
+		return new Movie(id,name,year,genre);
+		
+	}
 
 }

@@ -15,47 +15,56 @@ public class MovieManager {
 	
 	public MovieManager() throws ClassNotFoundException, IOException {
 		movies = new ArrayList<>();
-		//loadMovies();
+		loadMovies();
 	}
 
 	public void addMovie(Movie movie) {
 		movies.add(movie);
+		System.out.println("Movies added successfully");
 		
 	}
 	public void clearMovies() {
 		movies.clear();
+		System.out.println("Movies Cleared");
 	}
 	public List<Movie> getMovies(){
 		return movies;
 		
 	}
-	public int getMovieId(Movie movie) {
-		return movie.getId();
+	public void getMovieById(int id) {
+		
+		movies.stream().filter((movie) -> movie.getId() == id).forEach((movie) -> System.out.println(movie));;
 		
 	}
-	public void loadMovies() throws IOException, ClassNotFoundException {
+	@SuppressWarnings("unchecked")
+	public void loadMovies(){
 		
+		try {
 		FileInputStream fileIn = new FileInputStream(filePath);
 		ObjectInputStream input = new ObjectInputStream(fileIn);
 		
-		for(int i=0; i<3; i++) {
-			movies.add((Movie) input.readObject());
-		}
+		movies = (List<Movie>) input.readObject();
 
 		input.close();
 		fileIn.close();
+		}
+		catch(Exception e) {
+			System.out.println("Movies Loaded");
+		}
 		
 	}
-	public void saveMovie() throws IOException {
-		FileOutputStream file = new FileOutputStream(filePath);
-		ObjectOutputStream out = new ObjectOutputStream(file);
+	public void saveMovie()  {
+		try {
+			FileOutputStream file = new FileOutputStream(filePath);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			
+			out.writeObject(movies);
+			out.close();
 		
-		for(Movie movie : movies) {
-			out.writeObject(movie);
-			out.writeObject(movie);
 		}
-		out.close();
-		System.out.println("Movies saved in file");
+		catch(Exception e) {
+			System.out.println("Movies saved in file");
+		}
 	}
 	
 

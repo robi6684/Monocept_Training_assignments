@@ -1,5 +1,8 @@
 package com.monocept.companyDb;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -89,10 +92,19 @@ public class DBConnection {
 		}
 		
 	}
-	
-	public void insertIntoDepartment(int deptNo,String deptName,String location) {
+	public void insertIntoDepartment() throws NumberFormatException, IOException {
 		
 		try {
+			BufferedReader bufferedReader= new BufferedReader(
+		            new InputStreamReader(System.in));
+			System.out.println("Enter department number");
+			int deptNo = Integer.parseInt(bufferedReader.readLine());
+			
+			System.out.println("Enter department name");
+			String deptName = bufferedReader.readLine();
+			
+			System.out.println("Enter department location");
+			String location = bufferedReader.readLine();
 			preparedStatement = connection.prepareStatement("INSERT INTO DEPT VALUES(?,?,?)");
 			preparedStatement.setInt(1, deptNo);
 			preparedStatement.setString(2, deptName);
@@ -105,10 +117,27 @@ public class DBConnection {
 		
 	}
 	
-	public void insertIntoEmployee(int empNo, String empName, String job, String mgr, String date, double sal,
-			String comm, int deptNo) {
+	public void insertIntoEmployee() throws NumberFormatException, IOException {
 
 		try {
+			BufferedReader bufferedReader= new BufferedReader(
+		            new InputStreamReader(System.in));
+			System.out.println("Enter employee number");
+			int empNo = Integer.parseInt(bufferedReader.readLine());
+			System.out.println("Enter employee name");
+			String empName = bufferedReader.readLine();
+			System.out.println("Enter job");
+			String job = bufferedReader.readLine();
+			System.out.println("Enter manager");
+			String mgr = bufferedReader.readLine();
+			System.out.println("Enter hire date in (YYYY/MM/DD)");
+			String date = bufferedReader.readLine();
+			System.out.println("Enter salary");
+			double sal = Double.parseDouble(bufferedReader.readLine());
+			System.out.println("Enter commission");
+			String comm = bufferedReader.readLine();
+			System.out.println("Enter department number");
+			int deptno = Integer.parseInt(bufferedReader.readLine());
 			preparedStatement = connection.prepareStatement("INSERT INTO EMP VALUES(?,?,?,?,?,?,?,?)");
 			preparedStatement.setInt(1, empNo);
 			preparedStatement.setString(2, empName);
@@ -131,7 +160,7 @@ public class DBConnection {
 				preparedStatement.setDouble(7, commission);
 			}
 			
-			preparedStatement.setInt(8, deptNo);
+			preparedStatement.setInt(8, deptno);
 			preparedStatement.executeUpdate();
 			System.out.println("Values inserted successfully");
 		} catch (SQLException e) {
@@ -142,8 +171,12 @@ public class DBConnection {
 		
 	}
 	
-	public void displayEmployeesOfDepartment(String department) {
+	public void displayEmployeesOfDepartment() throws IOException {
 		try {
+			BufferedReader bufferedReader= new BufferedReader(
+		            new InputStreamReader(System.in));
+			System.out.println("Enter department");
+			String department = bufferedReader.readLine();
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery("SELECT EMP.* FROM EMP INNER JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO "
 					+ "WHERE DEPT.DEPTNO = (SELECT DEPTNO FROM DEPT WHERE DNAME = " + "'"+department+"');");
@@ -168,28 +201,43 @@ public class DBConnection {
 		}	
 	}
 	
-	public void insertEmployeeIntoAccountingDepartment(int empNo, String empName, String job, String mgr, String date, double sal,
-			String comm) {
+	public void insertEmployeeIntoAccountingDepartment() throws NumberFormatException, IOException {
 
 		try {
+			BufferedReader bufferedReader= new BufferedReader(
+		            new InputStreamReader(System.in));
+			System.out.println("Enter employee number");
+			int empno = Integer.parseInt(bufferedReader.readLine());
+			System.out.println("Enter employee name");
+			String empname = bufferedReader.readLine();
+			System.out.println("Enter job");
+			String jobs = bufferedReader.readLine();
+			System.out.println("Enter manager");
+			String manager = bufferedReader.readLine();
+			System.out.println("Enter hire date in (YYYY/MM/DD)");
+			String hireDate = bufferedReader.readLine();
+			System.out.println("Enter salary");
+			double salaries = Double.parseDouble(bufferedReader.readLine());
+			System.out.println("Enter commission");
+			String commission = bufferedReader.readLine();
 			preparedStatement = connection.prepareStatement("INSERT INTO EMP VALUES(?,?,?,?,?,?,?,?)");
-			preparedStatement.setInt(1, empNo);
-			preparedStatement.setString(2, empName);
-			preparedStatement.setString(3, job);
-			if(mgr.equals("NULL"))
+			preparedStatement.setInt(1, empno);
+			preparedStatement.setString(2, empname);
+			preparedStatement.setString(3, jobs);
+			if(manager.equals("NULL"))
 				preparedStatement.setNull(4, Types.NULL);
 			else {
-				int value = Integer.parseInt(mgr);
+				int value = Integer.parseInt(manager);
 				preparedStatement.setInt(4, value);
 			}
 
-			preparedStatement.setString(5, date);
-			preparedStatement.setDouble(6, sal);
-			if(comm.equals("NULL"))
+			preparedStatement.setString(5, hireDate);
+			preparedStatement.setDouble(6, salaries);
+			if(commission.equals("NULL"))
 				preparedStatement.setNull(7, Types.NULL);
 			else {
-				double commission = Double.parseDouble(comm);
-				preparedStatement.setDouble(7, commission);
+				double comm = Double.parseDouble(commission);
+				preparedStatement.setDouble(7, comm);
 			}
 			
 			preparedStatement.setInt(8, 10);
@@ -201,8 +249,12 @@ public class DBConnection {
 		
 	}
 	
-	public void deleteEmployeeFromSalary(double salary) {
+	public void deleteEmployeeFromSalary() throws NumberFormatException, IOException {
 		try {
+			BufferedReader bufferedReader= new BufferedReader(
+		            new InputStreamReader(System.in));
+			System.out.println("Enter salary");
+			double salary = Double.parseDouble(bufferedReader.readLine());
 			preparedStatement = 
 					connection.prepareStatement("DELETE FROM EMP WHERE SAL<"+ salary+";");
 			preparedStatement.executeUpdate();

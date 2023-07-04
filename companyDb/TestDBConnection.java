@@ -27,68 +27,26 @@ public class TestDBConnection {
 			System.out.println("8. Display all employees");
 			System.out.println("9. Exit");
 			System.out.println("Enter choice");
-			//choice = scanner.nextInt();
 			choice = Integer.parseInt(bufferedReader.readLine());
 			switch(choice) {
 			case 1: 
-				System.out.println("Enter department number");
-				int deptNo = Integer.parseInt(bufferedReader.readLine());
-				
-				System.out.println("Enter department name");
-				String deptName = bufferedReader.readLine();
-				
-				System.out.println("Enter department location");
-				String location = bufferedReader.readLine();
-				dbConnection.insertIntoDepartment(deptNo,deptName,location);
+				dbConnection.insertIntoDepartment();
 				break;
 			case 2:
-				System.out.println("Enter employee number");
-				int empNo = Integer.parseInt(bufferedReader.readLine());
-				System.out.println("Enter employee name");
-				String empName = bufferedReader.readLine();
-				System.out.println("Enter job");
-				String job = bufferedReader.readLine();
-				System.out.println("Enter manager");
-				String mgr = bufferedReader.readLine();
-				System.out.println("Enter hire date in (YYYY/MM/DD)");
-				String date = bufferedReader.readLine();
-				System.out.println("Enter salary");
-				double sal = Double.parseDouble(bufferedReader.readLine());
-				System.out.println("Enter commission");
-				String comm = bufferedReader.readLine();
-				System.out.println("Enter department number");
-				int deptno = Integer.parseInt(bufferedReader.readLine());
-				dbConnection.insertIntoEmployee(empNo,empName,job,mgr,date,sal,comm,deptno);
+				dbConnection.insertIntoEmployee();
 				break;
 			case 3:
-				System.out.println("Enter department");
-				String department = bufferedReader.readLine();
-				dbConnection.displayEmployeesOfDepartment(department);
+				dbConnection.displayEmployeesOfDepartment();
 				break;
 			case 4:
 				dbConnection.increaseCommission();
 				break;
 			case 5:
-				System.out.println("Enter employee number");
-				int empno = Integer.parseInt(bufferedReader.readLine());
-				System.out.println("Enter employee name");
-				String empname = bufferedReader.readLine();
-				System.out.println("Enter job");
-				String jobs = bufferedReader.readLine();
-				System.out.println("Enter manager");
-				String manager = bufferedReader.readLine();
-				System.out.println("Enter hire date in (YYYY/MM/DD)");
-				String hireDate = bufferedReader.readLine();
-				System.out.println("Enter salary");
-				double salaries = Double.parseDouble(bufferedReader.readLine());
-				System.out.println("Enter commission");
-				String commission = bufferedReader.readLine();
-				dbConnection.insertEmployeeIntoAccountingDepartment(empno,empname,jobs,manager,hireDate,salaries,commission);
+				dbConnection.insertEmployeeIntoAccountingDepartment();
 				break;
 			case 6:
-				System.out.println("Enter salary");
-				double salary = Double.parseDouble(bufferedReader.readLine());
-				dbConnection.deleteEmployeeFromSalary(salary);
+				
+				dbConnection.deleteEmployeeFromSalary();
 				break;
 			case 7:
 				dbConnection.displayAlldDepartments();
@@ -103,16 +61,5 @@ public class TestDBConnection {
 			}
 			
 		}
-		//scanner.close();
-		//dbConnection.insertIntoDepartment();
-		//dbConnection.deleteFromDepartment("Delete from DEPT where DEPTNO = 30");
-		//dbConnection.updateDepartment("update DEPT set DNAME = 'ACCOUNTING' where DEPTNO = 10");
-		//dbConnection.insertIntoEmployee();
-		//dbConnection.displayEmployeesOfDepartment("ACCOUNTING");
-		//dbConnection.increaseCommission();
-		//dbConnection.deleteEmployeeFromSalary(5000); 
-		//dbConnection.displayAllEmployees();
-		//dbConnection.displayAlldDepartments();
-		//dbConnection.insertEmployeeIntoAccountingDepartment();
-}
+	}
 }

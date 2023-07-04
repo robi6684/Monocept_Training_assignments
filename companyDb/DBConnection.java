@@ -2,7 +2,6 @@ package com.monocept.companyDb;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,7 +22,7 @@ public class DBConnection {
 		
 	}
 	
-	public static DBConnection getObject() {
+	public static DBConnection getDBConnectionObject() {
 		if(dbConnection == null)
 			dbConnection = new DBConnection();
 		return dbConnection;
@@ -35,6 +34,7 @@ public class DBConnection {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//establishing connection
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company","root","Saraswati@123");
+			statement = connection.createStatement();
 			//System.out.println("Connection established successfully");
 			
 		} 
@@ -46,7 +46,6 @@ public class DBConnection {
 	
 	public void createComapanyDatabase() {
 		try {
-			statement = connection.createStatement();
 			statement.executeUpdate("CREATE DATABASE COMPANY");
 			System.out.println("Database created successfully");
 		} catch (SQLException e) {
@@ -57,7 +56,6 @@ public class DBConnection {
 	
 	public void createDepartmentTable() {
 		try {
-			statement = connection.createStatement();
 			statement.executeUpdate("USE COMPANY");
 			statement.executeUpdate("CREATE TABLE DEPT ("
 					+ " DEPTNO integer NOT NULL,"
@@ -73,7 +71,6 @@ public class DBConnection {
 	
 	public void createEmployeeTable() {
 		try {
-			statement = connection.createStatement();
 			statement.executeUpdate("USE COMPANY");
 			statement.executeUpdate(" CREATE TABLE EMP ("
 					+ " EMPNO               integer NOT NULL,"
@@ -92,11 +89,9 @@ public class DBConnection {
 		}
 		
 	}
-	public void insertIntoDepartment() throws NumberFormatException, IOException {
+	public void insertIntoDepartment(BufferedReader bufferedReader) throws NumberFormatException, IOException {
 		
 		try {
-			BufferedReader bufferedReader= new BufferedReader(
-		            new InputStreamReader(System.in));
 			System.out.println("Enter department number");
 			int deptNo = Integer.parseInt(bufferedReader.readLine());
 			
@@ -110,18 +105,16 @@ public class DBConnection {
 			preparedStatement.setString(2, deptName);
 			preparedStatement.setString(3,location);
 			preparedStatement.executeUpdate();
-			System.out.println("Values inserted successfully");
+			System.out.println("New department added successfully");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public void insertIntoEmployee() throws NumberFormatException, IOException {
+	public void insertIntoEmployee(BufferedReader bufferedReader) throws NumberFormatException, IOException {
 
 		try {
-			BufferedReader bufferedReader= new BufferedReader(
-		            new InputStreamReader(System.in));
 			System.out.println("Enter employee number");
 			int empNo = Integer.parseInt(bufferedReader.readLine());
 			System.out.println("Enter employee name");
@@ -162,7 +155,7 @@ public class DBConnection {
 			
 			preparedStatement.setInt(8, deptno);
 			preparedStatement.executeUpdate();
-			System.out.println("Values inserted successfully");
+			System.out.println("New employee added successfully");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -171,10 +164,8 @@ public class DBConnection {
 		
 	}
 	
-	public void displayEmployeesOfDepartment() throws IOException {
+	public void displayEmployeesOfDepartment(BufferedReader bufferedReader) throws IOException {
 		try {
-			BufferedReader bufferedReader= new BufferedReader(
-		            new InputStreamReader(System.in));
 			System.out.println("Enter department");
 			String department = bufferedReader.readLine();
 			statement = connection.createStatement();
@@ -195,17 +186,15 @@ public class DBConnection {
 			preparedStatement = 
 					connection.prepareStatement("UPDATE EMP SET COMM = 0.2*IFNULL(COMM,0) + IFNULL(COMM,0);");
 			preparedStatement.executeUpdate();
-			System.out.println("Values updated successfully");
+			System.out.println("Commission of each employee increased by 20%");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
 	}
 	
-	public void insertEmployeeIntoAccountingDepartment() throws NumberFormatException, IOException {
+	public void insertEmployeeIntoAccountingDepartment(BufferedReader bufferedReader) throws NumberFormatException, IOException {
 
 		try {
-			BufferedReader bufferedReader= new BufferedReader(
-		            new InputStreamReader(System.in));
 			System.out.println("Enter employee number");
 			int empno = Integer.parseInt(bufferedReader.readLine());
 			System.out.println("Enter employee name");
@@ -242,23 +231,21 @@ public class DBConnection {
 			
 			preparedStatement.setInt(8, 10);
 			preparedStatement.executeUpdate();
-			System.out.println("Values inserted successfully");
+			System.out.println("New Employee into Accounting department added");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public void deleteEmployeeFromSalary() throws NumberFormatException, IOException {
+	public void deleteEmployeeBySalary(BufferedReader bufferedReader) throws NumberFormatException, IOException {
 		try {
-			BufferedReader bufferedReader= new BufferedReader(
-		            new InputStreamReader(System.in));
 			System.out.println("Enter salary");
 			double salary = Double.parseDouble(bufferedReader.readLine());
 			preparedStatement = 
 					connection.prepareStatement("DELETE FROM EMP WHERE SAL<"+ salary+";");
 			preparedStatement.executeUpdate();
-			System.out.println("Values deleted successfully");
+			System.out.println("Records having salary less than " + salary + " deleted successfully");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
@@ -266,7 +253,6 @@ public class DBConnection {
 	
 	public void displayAllEmployees() {
 		try {
-			statement = connection.createStatement();
 			resultSet = statement.executeQuery("SELECT * FROM EMP;");
 			while(resultSet.next()) {
 				System.out.println(resultSet.getInt(1) + "\t" + resultSet.getString(2) +"\t" + resultSet.getString(3)
@@ -280,7 +266,6 @@ public class DBConnection {
 	}
 	public void displayAlldDepartments() {
 		try {
-			statement = connection.createStatement();
 			resultSet = statement.executeQuery("SELECT * FROM DEPT;");
 			while(resultSet.next()) {
 				System.out.println(resultSet.getInt(1) + "\t" + resultSet.getString(2) +"\t" + resultSet.getString(3));

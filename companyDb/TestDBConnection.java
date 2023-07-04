@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 public class TestDBConnection {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		DBConnection dbConnection = DBConnection.getObject();
+		DBConnection dbConnection = DBConnection.getDBConnectionObject();
 		
 		dbConnection.connect();
 		//dbConnection.createComapanyDatabase();
@@ -30,23 +30,23 @@ public class TestDBConnection {
 			choice = Integer.parseInt(bufferedReader.readLine());
 			switch(choice) {
 			case 1: 
-				dbConnection.insertIntoDepartment();
+				dbConnection.insertIntoDepartment(bufferedReader);
 				break;
 			case 2:
-				dbConnection.insertIntoEmployee();
+				dbConnection.insertIntoEmployee(bufferedReader);
 				break;
 			case 3:
-				dbConnection.displayEmployeesOfDepartment();
+				dbConnection.displayEmployeesOfDepartment(bufferedReader);
 				break;
 			case 4:
 				dbConnection.increaseCommission();
 				break;
 			case 5:
-				dbConnection.insertEmployeeIntoAccountingDepartment();
+				dbConnection.insertEmployeeIntoAccountingDepartment(bufferedReader);
 				break;
 			case 6:
 				
-				dbConnection.deleteEmployeeFromSalary();
+				dbConnection.deleteEmployeeBySalary(bufferedReader);
 				break;
 			case 7:
 				dbConnection.displayAlldDepartments();

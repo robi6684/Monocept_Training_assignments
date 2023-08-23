@@ -1,0 +1,96 @@
+.nav-item>p{
+    font-weight: 600;
+    color: rgb(95, 95, 95);
+    cursor: pointer;
+    font-size: 15px;
+    
+}
+
+.nav-item>p:hover{
+    color:rgb(0, 0, 0);
+    text-shadow: 5px 5px 10px #a4ffa4
+}
+
+.login{
+    background: rgb(230,255,210);
+    background: linear-gradient(90deg, rgba(230,255,210,1) 39%, rgba(133,252,88,1) 100%);
+}
+
+.button-71 {
+    background-color: #0078d0;
+    border: 0;
+    border-radius: 56px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    outline: 0;
+    padding: 16px 21px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-71:before {
+    background-color: initial;
+    background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+    border-radius: 125px;
+    content: "";
+    height: 50%;
+    left: 4%;
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    transition: all .3s;
+    width: 92%;
+  }
+  
+  .button-71:hover {
+    box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+    transform: scale(1.05);
+  }
+  
+  @media (min-width: 768px) {
+    .button-71 {
+      padding: 16px 48px;
+    }
+  }
+
+  .card-style1{
+    background: rgb(247,226,255);
+    background: linear-gradient(90deg, rgba(247,226,255,1) 20%, rgba(250,142,202,1) 100%);
+  }
+
+  .card-style2{
+    background: rgb(210,232,255);
+    background: linear-gradient(90deg, rgba(210,232,255,1) 20%, rgba(142,165,250,1) 100%);
+  }
+
+  .card-style3{
+    background: rgb(239,252,181);
+    background: linear-gradient(90deg, rgba(239,252,181,1) 20%, rgba(162,250,139,1) 100%);
+  }
+
+  .footer{
+    background-color: rgb(218, 218, 218);
+  }
+
+  .footerText{
+    font-weight: 600;
+    
+  }
+
+  .labels{
+    cursor: pointer;
+  }
+
+  .labels:hover{
+    color:rgb(0, 0, 0);
+    text-shadow: 5px 5px 10px #00ff00
+  }

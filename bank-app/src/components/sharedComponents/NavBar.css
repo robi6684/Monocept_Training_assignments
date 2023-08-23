@@ -1,0 +1,14 @@
+.navList{
+    font-size: large;
+    cursor: pointer;
+    margin-left: 3rem;
+}
+
+.navList:hover{
+    background-color: rgb(155, 252, 255);
+    transition: all .5s;
+}
+
+.navItems{
+    margin-left: 12rem;
+}
